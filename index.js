@@ -21,11 +21,21 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   }
 });
-
+// const verifyToken = (req, res, next) => {
+//   const authHeader = req?.headers.authorization
+//   if (!authHeader) {
+//     return res.status(401).json({ message: "unauthorized" })
+//   }
+//   const token = authHeader.split(" ")[1]
+//   if (!token) {
+//     return res.status(401).json({ message: "unauthorized" })
+//   }
+//   console.log(token);
+//   next()
+// }
 async function run() {
   try {
-
-    await client.connect();
+    // await client.connect();
 
     const db = client.db("studyNook");
     const roomCollection = db.collection("rooms");
@@ -60,6 +70,7 @@ async function run() {
       const result = await roomCollection.deleteOne(query)
       res.send(result)
     })
+
     app.patch('/studyrooms/:id', async (req, res) => {
       const { id } = req.params
       console.log(id, 'id');
