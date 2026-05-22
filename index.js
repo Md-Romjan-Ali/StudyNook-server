@@ -80,7 +80,7 @@ async function run() {
       res.send(result)
     })
 
-    app.patch('/studyrooms/:id', async (req, res) => {
+    app.patch('/studyrooms/:id', verifyToken, async (req, res) => {
       const { id } = req.params
       console.log(id, 'id');
       const updateData = req.body;
@@ -92,7 +92,7 @@ async function run() {
     })
 
     // listing add
-    app.post('/mylistingdata', async (req, res) => {
+    app.post('/mylistingdata', verifyToken, async (req, res) => {
       const cursor = req.body;
       const result = await myListing.insertOne(cursor);
       res.send(result);
