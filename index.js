@@ -111,7 +111,7 @@ async function run() {
       const result = await usersRoomsCollection.insertOne(cursor)
       res.send(result)
     })
-    app.get("/usersrooms", async (req, res) => {
+    app.get("/usersrooms", verifyToken, async (req, res) => {
       const result = await usersRoomsCollection.find().toArray()
       res.send(result)
     })
