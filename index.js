@@ -51,7 +51,7 @@ async function run() {
     const usersRoomsCollection = db.collection("usersrooms");
     const myListing = db.collection("mylisting");
 
-    app.post('/studyrooms', async (req, res) => {
+    app.post('/studyrooms', verifyToken, async (req, res) => {
       const cursor = req.body
       const result = await roomCollection.insertOne(cursor)
       res.send(result)
@@ -98,7 +98,7 @@ async function run() {
       res.send(result);
     });
     // get by email
-    app.get('/mylistingdata/:email', async (req, res) => {
+    app.get('/mylistingdata/:email', verifyToken, async (req, res) => {
       const email = req.params.email;
       const query = { email };
       const result = await myListing.find(query).toArray();
@@ -106,7 +106,7 @@ async function run() {
     });
 
     // user add
-    app.post('/usersrooms', async (req, res) => {
+    app.post('/usersrooms', verifyToken, async (req, res) => {
       const cursor = req.body
       const result = await usersRoomsCollection.insertOne(cursor)
       res.send(result)
