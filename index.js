@@ -65,7 +65,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get('/studyrooms/:id', async (req, res) => {
+    app.get('/studyrooms/:id', verifyToken, async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) }
       const result = await roomCollection.findOne(query)
@@ -81,7 +81,6 @@ async function run() {
 
     app.patch('/studyrooms/:id', verifyToken, async (req, res) => {
       const { id } = req.params
-      console.log(id, 'id');
       const updateData = req.body;
       const result = await roomCollection.updateOne(
         { _id: new ObjectId(id) },
