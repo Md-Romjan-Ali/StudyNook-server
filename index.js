@@ -115,13 +115,13 @@ async function run() {
       const result = await usersRoomsCollection.find().toArray()
       res.send(result)
     })
-    app.get('/usersrooms/:userId', async (req, res) => {
+    app.get('/usersrooms/:userId', verifyToken, async (req, res) => {
       const userId = req.params.userId
       const query = { userId }
       const result = await usersRoomsCollection.find(query).toArray()
       res.send(result)
     })
-    app.patch('/usersrooms/:id', async (req, res) => {
+    app.patch('/usersrooms/:id', verifyToken, async (req, res) => {
       const { id } = req.params
       console.log(id, 'id');
       const updateData = req.body;
