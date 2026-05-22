@@ -73,7 +73,7 @@ async function run() {
       res.send(result)
     })
 
-    app.delete('/studyrooms/:id', async (req, res) => {
+    app.delete('/studyrooms/:id', verifyToken, async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) }
       const result = await roomCollection.deleteOne(query)
